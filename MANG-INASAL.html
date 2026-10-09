@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+        integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <title>Document</title>
+</head>
+
+<body>
+    <nav class="bg-white-100 fixed top-0 left-0 w-full z-999 backdrop-blur-md shadow-sm">
+        <div class="flex justify-around items-center text-white bg-white p-5 h-20 ">
+            <div class="flex cursor-pointer">
+                <img src="https://www.manginasal.ph/wp-content/uploads/2024/12/mang-inasal-3.svg" alt=""
+                    class="w-[80px] h-[46px]">
+            </div>
+            <div class="flex gap-5">
+
+                <button onclick="showhomebtn()"
+                    class="text-purple-700 cursor-pointer font-bold hover:text-underline  hover:text-green-700  px-3 py-1 rounded-md">HOME
+                </button>
+
+                <a class="text-black font-bold hover:text-underline  hover:text-green-700  px-3 py-1 rounded-md"
+                    href="">Menu</a>
+
+                <button onclick="showcartbtn()"
+                    class="text-blue-700 cursor-pointer font-bold hover:text-underline  hover:text-green-700  px-3 py-1 rounded-md">
+                    CART
+                </button>
+
+
+                <button onclick="showorderbtn()"
+                    class="text-red-700 cursor-pointer font-bold hover:text-underline  hover:text-green-700  px-3 py-1 rounded-md">MY
+                    ORDERS
+                </button>
+
+                <a class="text-black font-bold hover:text-underline  hover:text-green-700  px-3 py-1 rounded-md"
+                    href="">Location</a>
+                <a class="text-black font-bold hover:text-underline  hover:text-green-700  px-3 py-1 rounded-md"
+                    href="">Contact Us</a>
+            </div>
+            <div class="">
+                <button
+                    class="text-white border-2 bg-green-700 hover:bg-green-800 px-5 py-3 rounded-lg cursor-pointer hover:scale-110 duration-100 ">
+                    Order Now</button>
+            </div>
+
+        </div>
+    </nav>
+    <section class=" flex items-center justify-center  pt-20  ">
+        <div>
+            <img src="https://www.manginasal.ph/wp-content/uploads/2025/06/FA_1920x470px_Desktop-Banner_MI-PEGASUS.png"
+                alt="" class="w-[1513px] h-[370.362px]">
+        </div>
+    </section>
+    <div class="mt-20 flex justify-center items-center">
+
+        <input type="text" placeholder="  What are you looking for?"
+            class="h-[36.6px] w-[1271.2px] rounded-xl border-1 border-black">
+    </div>
+    <div class="flex flex-col items-center mt-10">
+        <h1 class="text-green-700 text-5xl font-bold">Love the flavors at Mang Inasal!</h1>
+        <p class=" text-black text-lg mt-5 mb-30">Mang Inasal is the Philippines Grill Expert that delightfully serves
+            Ihaw-Sarap food and Unli-Saya experience.</p>
+    </div>
+
+    <div class=" flex flex-col items-center  gap-10  h-fit bg-gray-100">
+        <div id="menu" class="flex flex-col  mt-10">
+            <p class="text-5xl font-bold text-green-700">Menu</p>
+            <p class="text-black text-md mt-5">Order now via https://manginasaldelivery.com.ph/</p>
+        </div>
+    </div>
+    <div class="  flex flex-col items-center  gap-10  h-fit bg-rose-100">
+        <div id="cartplace" class="flex flex-col  mt-10 hidden">
+            <p class="text-5xl font-bold text-violet-700">Cart Place</p>
+        </div>
+    </div>
+
+
+
+    <div id="modalHome" class=" flex flex-col items-center  gap-10  h-fit bg-gray-100">
+        <div id="card" class="grid grid-cols-4 grid-rows-3 p-10 gap-10 space-y-5  rounded-lg  ">
+
+        </div>
+
+    </div>
+    <div id="modalCart" class=" flex flex-col items-center hidden  gap-10  h-fit bg-rose-100">
+
+        <div id="cart" class="grid grid-cols-4 grid-rows-3 p-10 gap-10 space-y-5  rounded-lg  ">
+
+        </div>
+
+
+    </div>
+    <div id="modalmyOrders" class=" flex flex-col hidden items-center hidden  gap-10  h-fit bg-gray-100">
+        <div id="order" class="  grid grid-cols-4 grid-rows-3 p-10 gap-10 space-y-5  rounded-lg ">
+
+        </div>
+    </div>
+
+    <script>
+        let cartplace = document.getElementById('cartplace');
+        let menu = document.getElementById('menu');
+
+        let modalHome = document.getElementById("modalHome");
+        let modalCart = document.getElementById('modalCart');
+        let modalmyOrders = document.getElementById('modalmyOrders');
+
+        let cartDiv = document.getElementById('cart');
+        let cardDiv = document.getElementById('card');
+        let orderDiv = document.getElementById('order');
+
+        let order = []
+        let cart = []
+        let card = [
+            {
+                image: "https://www.manginasal.ph/wp-content/uploads/2023/09/Paa-large-400x255-1.png",
+                name: "Paa Large-MP1",
+                price: "₱139.00"
+            },
+            {
+                image: "https://www.manginasal.ph/wp-content/uploads/2023/09/Extra-Creamy-Halo-Halo.png",
+                name: "Extra Creamy Halo-Halo",
+                price: "₱35.00"
+            },
+            {
+                image: "https://www.manginasal.ph/wp-content/uploads/2023/09/palabok.png",
+                name: "Palabok",
+                price: "₱89.00"
+            },
+            {
+                image: "https://www.manginasal.ph/wp-content/uploads/2023/09/2-pc-Pork-BBQ-with-Spiced-Vinegar-2.png",
+                name: "2pc Pork BBQ ",
+                price: "₱134.00"
+            },
+            {
+                image: "https://www.manginasal.ph/wp-content/uploads/2023/09/Pork-Sisig-Family-Size-edited.png",
+                name: "Pork Sisig Family Size",
+                price: "₱105.00"
+            },
+            {
+                image: "https://www.manginasal.ph/wp-content/uploads/2023/09/Paa-Large-Family-Size-400x255-img.png",
+                name: "Pecho Large Family Size",
+                price: "₱284.00"
+            },
+            {
+                image: "https://www.manginasal.ph/wp-content/uploads/2023/09/Crema-de-Leche-Small.png",
+                name: "Crema de Halo-Halo",
+                price: "₱284.00"
+            },
+            {
+                image: "https://www.manginasal.ph/wp-content/uploads/2024/04/Featured-Image-Thumbnails-400x255-Solo-Fiesta-Paa.png",
+                name: "Chicken Inasal Solo",
+                price: "₱210.00"
+            },
+            {
+                image: "https://www.manginasal.ph/wp-content/uploads/2023/10/Pecho-Large-Buddy-Size.png",
+                name: "Pecho Large Buddy Size",
+                price: "₱180.00"
+            },
+            {
+                image: "https://www.manginasal.ph/wp-content/uploads/2023/09/TSM-PAA-2.png",
+                name: "Todo Solb Paa Large",
+                price: "₱259.00"
+            },
+            {
+                image: "https://www.manginasal.ph/wp-content/uploads/2023/09/Sizzling-Liempo.png",
+                name: "Sizzling Liempo",
+                price: "₱279.00"
+            },
+            {
+                image: "https://www.manginasal.ph/wp-content/uploads/2026/02/Chicken-Inasal-Regular-Breakfast-2.png",
+                name: "20 pcs. Pork BBQ",
+                price: "₱390.00"
+            },
+        ];
+        showCard();
+        showCart();
+        showOrder();
+
+        function showCard() {
+            let i = 0;
+            while (i < card.length) {
+
+                cardDiv.innerHTML += ` 
+    
+ <div class="w-90 h-fit bg-white  p-10 rounded lg text-center">
+    <img src="${card[i].image}" alt="" class="w-full h-50">
+    <div class="mt-5">
+           <p class="text-2xl font-bold">${card[i].name}</p>
+           <p class="text-xl font-semibold">${card[i].price}</p>
+    </div>
+     <button onclick="alertcart(${i})" class="py-2 w-full bg-green-700 hover:bg-green-950 text-white rounded-lg font-semibold hover:text-gray-100 duration-200 cursor-pointer mt-10">
+     Add to Cart</button>
+</div>
+    `
+                i++;
+            }
+        }
+
+        function showCart() {
+            let d = 0;
+            while (d < cart.length) {
+
+                cartDiv.innerHTML += ` 
+    
+ <div class="w-90 h-fit bg-white  p-10 rounded lg text-center">
+    <img src="${cart[d].image}" alt="" class="w-full h-50">
+    <div class="mt-5">
+           <p class="text-2xl font-bold">${cart[d].name}</p>
+           <p class="text-xl font-semibold">${cart[d].price}</p>
+    </div>
+     <button onclick="alertorder()" class="py-2 w-full bg-violet-700 hover:bg-violet-950 text-white rounded-lg font-semibold hover:text-gray-100 duration-200 cursor-pointer mt-10">
+     </i>Order Now</button>
+</div>
+    `
+                d++;
+            }
+        }
+        function showOrder() {
+            let m = 0;
+            while (m < order.length) {
+
+                orderDiv.innerHTML += ` 
+    
+ <div class="w-90 h-fit bg-white  p-10 rounded lg text-center">
+    <img src="${order[m].image}" alt="" class="w-full h-50">
+    <div class="mt-5">
+           <p class="text-2xl font-bold">${order[m].name}</p>
+           <p class="text-xl font-semibold">${order[m].price}</p>
+    </div>
+    
+</div>
+    `
+                m++;
+            }
+        }
+
+
+        // MODAL AREA
+        function showhomebtn() {
+            modalHome.style.display = 'flex';
+            modalCart.style.display = 'none';
+            modalmyOrders.style.display = 'none';
+            menu.style.display = 'flex';
+            cartplace.style.display = 'none';
+        }
+
+
+        function showcartbtn() {
+            modalHome.style.display = 'none';
+            modalCart.style.display = 'flex';
+            modalmyOrders.style.display = 'none';
+            menu.style.display = 'none';
+            cartplace.style.display = 'flex';
+
+        }
+        function showorderbtn() {
+            modalHome.style.display = 'none';
+            modalCart.style.display = 'none';
+            modalmyOrders.style.display = 'flex';
+            menu.style.display = 'none';
+            cartplace.style.display = 'none';
+
+            // ADDED TO CART/ORDERS
+        }
+        function alertcart(index) {
+            cardDiv.innerHTML = "";
+            cartDiv.innerHTML = "";
+
+            alert('Added To Cart');
+            cart.push(card[index]);
+
+            showCard();
+            showCart();
+
+        }
+        function alertorder(index) {
+            cardDiv.innerHTML = '';
+            cartDiv.innerHTML = "";
+
+            alert('Ordered Successfully!');
+            cart.push(order[index]);
+
+            showCart();
+            showCard();
+
+        }
+        
+        
+    </script>
+</body>
+
+</html>
